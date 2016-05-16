@@ -77,29 +77,37 @@ exports.arraysAnswers = {
   },
 
   duplicates : function(arr) {
-    var dupeArr = [];
+    var dupeArr = [], copyArr = [];
     if (arr.length <= 1) return dupeArr;
     //make copy of array
     for (var i = 0; i < arr.length; i++) {
-      dupeArr[i] == arr[i];
+      copyArr[i] = arr[i];
     };
-    dupeArr.sort();
+    //sort array. If consecutive elements are identical, save off value to new array (once)
+    copyArr.sort();
     var i = 0;
     do {
-      if (dupeArr[i] == dupeArr[i + 1]) {
-        dupeArr.splice(i, 1);
+      if (copyArr[i] == copyArr[i + 1]) {
+        copyArr.splice(i, 1);
+        if (dupeArr[dupeArr.length - 1] != copyArr[i])
+          dupeArr.push(copyArr[i]);
       } else {
         i++;
       };
-    } while (i < dupeArr.length - 1);
+    } while (i < copyArr.length - 1);
     return dupeArr;
   },
 
   square : function(arr) {
-
+    arr.forEach(function(value, index, array) { array[index] = value * value; });
+    return arr;
   },
 
   findAllOccurrences : function(arr, target) {
-
+    var match = [];
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i] == target) match.push(i);
+    };
+    return match;
   }
 };
